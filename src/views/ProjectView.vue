@@ -19,19 +19,19 @@
     </div>
   </div>
   <ContactSection class="contact-container" id="contacts"/>
-  <NavBar/>
+  <NavBarProjects/>
 </template>
 <script>
 import { fetchProjects } from '@/api/api';
 import { language } from '@/api/variables';
 import ContactSection from '@/components/ContactSection.vue';
 import LanguageSelectorWidget from '@/components/LanguageSelectorWidget.vue';
-import NavBar from '@/components/NavBar.vue';
+import NavBarProjects from '@/components/NavBarProjects.vue';
 import ProjectSample from '@/components/ProjectViewComponents/ProjectSample.vue';
 import { ref } from 'vue';
 export default {
 components:{
-  NavBar,
+  NavBarProjects,
   ProjectSample,
   LanguageSelectorWidget,
   ContactSection,
