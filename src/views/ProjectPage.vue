@@ -27,7 +27,6 @@ methods:{
       const projects = await fetchProjects();
       this.prjList = projects || 'No message received';
       this.project = this.prjList.find((prj) => prj.id == Number.parseInt(this.TitleEn))
-      console.log(this.project)
     } catch (error){
       console.error('Error fetching data:', error);
       this.message = 'Error loading data';

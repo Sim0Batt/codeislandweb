@@ -18,7 +18,7 @@
       />
     </div>
   </div>
-  <ContactSection class="contact-container"/>
+  <ContactSection class="contact-container" id="contacts"/>
   <NavBar/>
 </template>
 <script>
