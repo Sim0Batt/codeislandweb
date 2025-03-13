@@ -26,7 +26,7 @@ import { fetchProjects } from '@/api/api';
 import { language } from '@/api/variables';
 import ContactSection from '@/components/ContactSection.vue';
 import LanguageSelectorWidget from '@/components/LanguageSelectorWidget.vue';
-import NavBarProjects from '@/components/NavBarProjects.vue';
+import NavBarProjects from '@/components/ProjectViewComponents/NavBarProjects.vue';
 import ProjectSample from '@/components/ProjectViewComponents/ProjectSample.vue';
 import { ref } from 'vue';
 export default {

@@ -16,8 +16,6 @@ export default {
       menuItems: [
         { name: 'Home', link: '/' },
         { name: 'Projects', link: '/projects'},
-        { name: 'About & Partners', link: '#about-partners' },
-        { name: 'Technologies', link: '#technologies' },
         { name: 'Contacts', link: '#contacts' },
       ],
     }
@@ -49,7 +47,7 @@ export default {
 
 .menu-item {
   color: white;
-  font-size: 130%;
+  font-size: 18px;
   text-decoration: none;
   padding: 0 12px;
 }

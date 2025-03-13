@@ -94,7 +94,7 @@ export default {
 }
 .title {
   text-align: center;
-  font-size: 2.5em;
+  font-size: 2em;
   color: #9dc12a;
   font-weight: bold;
   margin: 10px;

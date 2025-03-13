@@ -1,3 +1,5 @@
+import AdminPage from '@/views/AdminPage.vue'
+import ContactPage from '@/views/ContactPage.vue'
 import HomeView from '@/views/HomeView.vue'
 import ProjectPage from '@/views/ProjectPage.vue'
 import ProjectView from '@/views/ProjectView.vue'
@@ -21,6 +23,16 @@ const router = createRouter({
       name: 'ProjectPage',
       component: ProjectPage,
       props: route => ({ TitleEn: route.params.title }), // Pass only TitleEn prop
+    },
+    {
+      path: '/contact',
+      name: 'ContactPage',
+      component: ContactPage,
+    },
+    {
+      path: '/admin',
+      name: 'AdminPage',
+      component: AdminPage,
     },
   ],
 })
