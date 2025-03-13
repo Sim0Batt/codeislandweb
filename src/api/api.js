@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const fetchProjects = async () => {
   try {
-    const response = await axios.get('http://10.194.165.139:8000/api/projects')
+    const response = await axios.get('https://10.194.165.139:8000/api/projects')
     if (!response || !response.data) {
       throw new Error('No data received')
     }
