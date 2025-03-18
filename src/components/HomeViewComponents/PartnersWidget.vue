@@ -53,7 +53,7 @@ export default {
 .partner-img {
   border: 5px solid #9dc12a;
   border-radius: 15px;
-  width: 9em;
+  width: 50%;
   max-width: 200px;
   height: auto;
 }

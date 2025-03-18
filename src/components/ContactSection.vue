@@ -7,7 +7,7 @@
         <h1 v-else>Contact Us</h1>
         <a href="/contact" class="contact-link">Contact Page</a>
         <a href="/privacy" class="privacy-link">[Privacy and GDPR]</a>
-        <a href="/admin" class="admin-link">Admin CMS</a>
+        <a href="/admin/login" class="admin-link">Admin CMS</a>
       </div>
     </div>
   </div>

@@ -31,11 +31,11 @@ export default {
   border-style: solid;
 }
 .tech-img {
-  width: 4.5vw;
+  width: 10%;
   border-radius: 50%;
 }
 .tech-name {
-  font-size: 1.5rem;
+  font-size: 150%;
   color: white;
   margin: 0;
 }
