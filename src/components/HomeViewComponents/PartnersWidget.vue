@@ -3,10 +3,13 @@
     <h1 class="title">Partners</h1>
 
     <p v-if="lang == 'it-IT'">
-      {{ textIt }}
+      {{ partnersTextIt }}
     </p>
-    <p v-else>
-      {{ textEn }}
+    <p v-if="lang == 'en-EN'">
+      {{ partnersTextEn }}
+    </p>
+    <p v-if="lang == 'es-ES'">
+      {{ partnersTextEs }}
     </p>
 
     <div class="img-container">
@@ -17,15 +20,36 @@
 </template>
 <script>
 import { language } from '@/api/variables'
-import { partnersTextEn, partnersTextIt } from '@/api/text_languages'
+import { fetchTexts } from '@/api/api';
 export default {
   data() {
     return {
       lang: language,
-      textIt: partnersTextIt,
-      textEn: partnersTextEn,
+      partnersTextEn: '',
+      partnersTextIt: '',
+      partnersTextEs: ''
     }
   },
+  methods:{
+    async fetchTextes(){
+      try{
+        const texList = await fetchTexts();
+        if (typeof texList === 'string') {
+          console.error('API Error:', texList);
+          return;
+        }
+        this.partnersTextEn = texList.partners_text_en;
+        this.partnersTextIt = texList.partners_text_it;
+        this.partnersTextEs = texList.partners_text_es;
+      } catch (error){
+        console.error('Error fetching data:', error);
+        this.message = 'Error loading data';
+      }
+    },
+  },
+  created(){
+    this.fetchTextes()
+  }
 }
 </script>
 <style scoped>
@@ -35,6 +59,11 @@ export default {
   padding: 10px;
   width: 50vw;
   margin: 20px;
+  box-shadow: -4px -4px 8px rgba(55, 51, 51, 0.76),
+              4px -4px 8px rgba(55, 51, 51, 0.76),
+              -4px 4px 8px rgba(55, 51, 51, 0.76),
+              4px 4px 8px rgba(55, 51, 51, 0.76);
+
 }
 .title {
   text-align: center;

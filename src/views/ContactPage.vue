@@ -8,8 +8,26 @@
       <p>Calle Aguadulce, 25, Planta 3, Puerta 11, 35004, Las Palmas de Gran Canaria, España</p>
     </div>
     <form @submit.prevent="submitForm">
-      <label class="text"  for="name">Name:</label>
-      <input class="name-input" type="text" id="name" v-model="form.name" required />
+      <div class="form-row">
+        <label class="text" for="name">Name:</label>
+        <input class="name-input" type="text" id="name" v-model="form.name" required />
+      </div>
+      <div class="form-row">
+        <label class="text" for="surname">Surname:</label>
+        <input class="name-input" type="text" id="surname" v-model="form.surname" required />
+      </div>
+      <div class="form-row">
+        <label class="text" for="phone">Phone Number:</label>
+        <input class="name-input" type="text" id="phone" v-model="form.phone" required />
+      </div>
+      <div class="form-row">
+        <label class="text" for="email">Email:</label>
+        <input class="name-input" type="text" id="email" v-model="form.email" required />
+      </div>
+      <div class="form-row">
+        <label class="text" for="company">Company Name:</label>
+        <input class="name-input" type="text" id="company" v-model="form.company" required />
+      </div>
 
       <div>
         <label class="text">Technologies:</label>
@@ -44,13 +62,23 @@
       <button class="submit-btn" type="submit">Send</button>
     </form>
   </div>
+  <NavBarProjects />
 </template>
 <script>
+import NavBarProjects from '@/components/ProjectViewComponents/NavBarProjects.vue';
+
 export default {
+  components:{
+    NavBarProjects
+  },
   data() {
     return {
       form: {
         name: '',
+        surname: '',
+        phone: '',
+        email: '',
+        company: '',
         message: '',
         tech: '',
         CompanyType: '',
@@ -70,6 +98,7 @@ export default {
   padding: 3rem;
   background-color: #363732;
   border-radius: 10px;
+  margin-top: 5em;
 }
 form {
   display: flex;
@@ -126,5 +155,10 @@ form {
   color: black;
   font-size: 120%;
   text-align: center;
+}
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 </style>

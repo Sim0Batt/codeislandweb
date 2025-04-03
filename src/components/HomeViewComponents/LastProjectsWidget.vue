@@ -1,17 +1,23 @@
 <template>
-  <h1 class="title">Last 3 Projects</h1>
+  <h1 v-if="lang=='it-IT'" class="title">Ultimi Progetti</h1>
+  <h1 v-if="lang=='en-EN'" class="title">Last Projects</h1>
+  <h1 v-if="lang=='es-ES'" class="title">Últimos Proyectos</h1>
   <div class="tabs-container">
     <div class="tabs">
       <div class="tab" v-for="tab in tabs" :key="tab.id">
         <h1 v-if="lang=='it-IT'" class="title-prj">{{ tab.titleIt }}</h1>
-        <h1 v-else class="title-prj">{{ tab.titleEn }}</h1>
+        <h1 v-if="lang=='en-EN'" class="title-prj">{{ tab.titleEn }}</h1>
+        <h1 v-if="lang=='es-ES'" class="title-prj">{{ tab.title_es }}</h1>
         <img src="@/assets/logo.png" />
         <div class="project-text-container">
           <p v-if="lang == 'it-IT'">
             {{ tab.short_descriptionIt }}
           </p>
-          <p v-else>
+          <p v-if="lang == 'en-EN'">
             {{ tab.short_descriptionEn }}
+          </p>
+          <p v-if="lang == 'es-ES'">
+            {{ tab.short_description_es }}
           </p>
         </div>
       </div>
@@ -32,7 +38,7 @@ export default {
     async fetchProj(){
       try {
         const projects = await fetchProjects();
-        this.tabs = projects.slice(0, 3) || 'No message received';
+        this.tabs = projects.slice(0, 2) || 'No message received';
       } catch (error){
         console.error('Error fetching data:', error);
         this.message = 'Error loading data';
@@ -80,7 +86,7 @@ export default {
 
 .title-prj{
   text-align: center;
-  font-size: 1.5em;
+  font-size: 100%;
   color: #9dc12a;
   font-weight: bold;
   margin: 10px;

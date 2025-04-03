@@ -17,8 +17,8 @@
               Photo {{ index + 1 }}
             </button>
           </div>
-          <div class="logo">
-            <img src="@/assets/logo.png" alt="logocodeisland" />
+          <div >
+            <img class="logo" src="@/assets/logo.png" alt="logocodeisland" />
           </div>
           <div class="last-projects-widget">
             <LastProjectsWidget />
@@ -67,6 +67,10 @@ export default {
 </script>
 
 <style scoped>
+.logo{
+  width: 20em;
+}
+
 .photo-widget {
   width: 100vw;
   height: 100vh;
@@ -74,6 +78,7 @@ export default {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
 }
 
 .photo-container-wrapper {

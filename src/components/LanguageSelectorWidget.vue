@@ -2,6 +2,7 @@
   <div class="horizontal-container">
     <img class="image" src="@/assets/uk.png" alt="" @click="setLang('en-EN')" />
     <img class="image" src="@/assets/it.png" alt="" @click="setLang('it-IT')" />
+    <img class="image" src="@/assets/es.png" alt="" @click="setLang('es-ES')" />
   </div>
 </template>
 <script>

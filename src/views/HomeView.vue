@@ -1,16 +1,17 @@
 <template>
   <div>
     <TitleScreen id="home" />
-    <div id="about-partners" class="a-p-title">
-      <h1>About & Partners</h1>
+    <div id="about-partners" >
+      <h1 class="a-p-title">About & Partners</h1>
     </div>
     <div class="horizontal-containter">
       <AboutWidget />
       <PartnersWidget />
     </div>
-    <div class="tech-title">
-      <h1 v-if="lang == 'it-IT'">{{ techIt }}</h1>
-      <h1 v-else>{{ techEn }}</h1>
+    <div >
+      <h1 class="tech-title" v-if="lang == 'it-IT'">Tecnologie Usate</h1>
+      <h1 class="tech-title" v-if="lang == 'en-EN'">Technologies we Use</h1>
+      <h1 class="tech-title" v-if="lang == 'es-ES'">Tecnologías Utilizadas</h1>
     </div>
     <TechonogiesWidget id="technologies" />
     <ContactSection id="contacts" class="contacts-section" />
@@ -26,7 +27,6 @@ import ContactSection from '@/components/ContactSection.vue'
 import TechonogiesWidget from '@/components/HomeViewComponents/TechonogiesWidget.vue'
 
 import { language } from '@/api/variables'
-import { titleTechEn, titleTechIt } from '@/api/text_languages'
 export default {
   components: {
     NavBar,
@@ -39,8 +39,6 @@ export default {
   name: 'HomeView',
   data() {
     return {
-      techIt: titleTechIt,
-      techEn: titleTechEn,
       lang: language,
     }
   },
@@ -54,7 +52,8 @@ export default {
 
 .a-p-title {
   text-align: center;
-  font-size: 1.5em;
+  font-size: 3.7em;
+  font-weight: bold;
 }
 
 .contacts-section {
@@ -68,7 +67,10 @@ export default {
 
 .tech-title {
   text-align: center;
-  font-size: 1.5em;
+  font-size: 3.7em;
   margin-top: 2%;
+  font-weight: bold;
 }
+
+
 </style>

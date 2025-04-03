@@ -2,6 +2,7 @@ import AdminPage from '@/views/AdminPage.vue'
 import ContactPage from '@/views/ContactPage.vue'
 import HomeView from '@/views/HomeView.vue'
 import LoginAdminView from '@/views/LoginAdminView.vue'
+import PrivacyView from '@/views/PrivacyView.vue'
 import ProjectPage from '@/views/ProjectPage.vue'
 import ProjectView from '@/views/ProjectView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -39,6 +40,11 @@ const router = createRouter({
       path: '/admin/login',
       name: 'LoginAdmin',
       component: LoginAdminView,
+    },
+    {
+      path: '/privacy',
+      name: 'PravacyPage',
+      component: PrivacyView,
     },
   ],
 })

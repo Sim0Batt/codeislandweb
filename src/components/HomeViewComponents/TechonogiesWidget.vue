@@ -1,19 +1,33 @@
 <template>
   <div class="horizontal-container">
-    <div class="tech-text">
-      <h1 class="title">Technologies</h1>
-      <p v-if="lang == 'it-IT'">
-        {{ textIt }}
-      </p>
-      <p v-else>
-        {{ textEn }}
-      </p>
+    <div class="text-container">
+    <h1 v-if="lang == 'it-IT'" class="title">Cosa facciamo</h1>
+    <h1 v-if="lang == 'en-EN'" class="title">What we do</h1>
+    <h1 v-if="lang == 'es-ES'" class="title">Qué hacemos</h1>
+      <div class="tech-text">
+        <div >
+          <img class="image-container" src="@/assets/title_images/photo3.png" alt="sad" />
+        </div>
+        <p v-if="lang == 'it-IT'">
+        {{ techTextIt }}
+        </p>
+        <p v-if="lang == 'en-EN'">
+          <!-- {{ techTextEn }} -->
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quasi ea qui a vel aspernatur accusantium, iusto repellat repudiandae! Fugit sapiente ea ipsam eos natus quam, porro consectetur obcaecati! Excepturi.
+        </p>
+        <p v-if="lang == 'es-ES'">
+          {{ techTextEs }}
+        </p>
+
+      </div>
     </div>
-    <ul class="tech-list">
+    <div class="tech-list-container">
+      <ul class="tech-list">
       <li v-for="tech in technologiesList" :key="tech.name" style="list-style-type: none">
-        <TechListComponent :iconName="tech.url" :techName="tech.name" />
+        <TechListComponent :iconName="tech.url" :techName="tech.name" class="text-list" />
       </li>
     </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -36,7 +50,7 @@ import MssqlIcon from '@/assets/tech_icons/mssql.png'
 import SqliteIcon from '@/assets/tech_icons/sqlite.png'
 
 import { language } from '@/api/variables'
-import { techTextEn, techTextIt } from '@/api/text_languages'
+import { fetchTexts } from '@/api/api'
 export default {
   components: {
     TechListComponent,
@@ -61,11 +75,32 @@ export default {
         { name: 'Microsoft SQL', url: MssqlIcon },
         { name: 'SQLite', url: SqliteIcon },
       ],
-      textEn: techTextEn,
-      textIt: techTextIt,
+      techTextIt: '',
+      techTextEn: '',
+      techTextEs: '',
       lang: language,
     }
   },
+  methods:{
+    async fetchTextes(){
+      try{
+        const texList = await fetchTexts();
+        if (typeof texList === 'string') {
+          console.error('API Error:', texList);
+          return;
+        }
+        this.techTextEn = texList.tech_text_en;
+        this.techTextIt = texList.tech_text_it;
+        this.techTextEs = texList.tech_text_es;
+      } catch (error){
+        console.error('Error fetching data:', error);
+        this.message = 'Error loading data';
+      }
+    },
+  },
+  created(){
+    this.fetchTextes()
+  }
 }
 </script>
 <style scoped>
@@ -74,23 +109,27 @@ export default {
   justify-content: space-around;
 }
 .tech-text {
-  background-color: #363732;
-  border-radius: 10px;
-  padding: 10px;
-  width: 50vw;
+  display: flex;
+  align-items: center;
   margin: 20px;
+  max-height: 500px;
+
 }
 .tech-list {
   background-color: #363732;
   border-radius: 10px;
   padding: 10px;
-  width: 50vw;
+  width: 30vw;
   margin: 20px;
-  max-height: 300px; /* Set a max height for the list */
-  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 500px;
+  overflow-y: auto;
   gap: 20px;
   display: flex;
   flex-direction: column;
+  box-shadow: -4px -4px 8px rgba(55, 51, 51, 0.76),
+              4px -4px 8px rgba(55, 51, 51, 0.76),
+              -4px 4px 8px rgba(55, 51, 51, 0.76),
+              4px 4px 8px rgba(55, 51, 51, 0.76);
 }
 .title {
   text-align: center;
@@ -99,4 +138,22 @@ export default {
   font-weight: bold;
   margin: 10px;
 }
+
+.image-container {
+  width: 80%;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.text-container{
+  background-color: #363732;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: -4px -4px 8px rgba(55, 51, 51, 0.76),
+              4px -4px 8px rgba(55, 51, 51, 0.76),
+              -4px 4px 8px rgba(55, 51, 51, 0.76),
+              4px 4px 8px rgba(55, 51, 51, 0.76);
+}
 </style>
+

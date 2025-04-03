@@ -4,7 +4,8 @@
       <img src="@/assets/canarie-italia-logo.png" alt="canarieitalia" />
       <div class="contact-us-container">
         <h1 v-if="lang == 'it-IT'">Contattaci</h1>
-        <h1 v-else>Contact Us</h1>
+        <h1 v-if="lang== 'en-EN'">Contact Us</h1>
+        <h1 v-if="lang== 'es-ES'">Contáctenos</h1>
         <a href="/contact" class="contact-link">Contact Page</a>
         <a href="/privacy" class="privacy-link">[Privacy and GDPR]</a>
         <a href="/admin/login" class="admin-link">Admin CMS</a>

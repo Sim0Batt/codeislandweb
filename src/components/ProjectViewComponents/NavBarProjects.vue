@@ -16,7 +16,7 @@ export default {
       menuItems: [
         { name: 'Home', link: '/' },
         { name: 'Projects', link: '/projects'},
-        { name: 'Contacts', link: '#contacts' },
+        { name: 'Contacts', link: '/contact' },
       ],
     }
   },
@@ -47,7 +47,7 @@ export default {
 
 .menu-item {
   color: white;
-  font-size: 18px;
+  font-size: 105%;
   text-decoration: none;
   padding: 0 12px;
 }
