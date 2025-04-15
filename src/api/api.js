@@ -99,3 +99,22 @@ export const updateTechTexts = async (lang, text) => {
     }
   }
 }
+
+
+export const deleteProject = async (id) => {
+  try {
+    const response = await axios.delete(`http://127.0.0.1:8000/api/delete_project/${id}`)
+    if (!response || !response.data) {
+      throw new Error('No data received')
+    }
+    return response.data
+  } catch (error) {
+    if (error.response) {
+      return `Server error: ${error.response.status}`
+    } else if (error.request) {
+      return 'No response from server'
+    } else {
+      return `Error: ${error.message}`
+    }
+  }
+}
