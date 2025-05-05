@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { base_data_prj } from './variables'
 
 export const fetchProjects = async () => {
   try {
@@ -118,3 +119,66 @@ export const deleteProject = async (id) => {
     }
   }
 }
+
+
+export const overrideProject = async (id, data) => {
+  try {
+    const response = await axios.post(
+      `http://127.0.0.1:8000/api/override_project_content/${id}`,
+      data
+    );
+    if (!response || !response.data) {
+      throw new Error('No data received');
+    }
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      return `Server error: ${error.response.status}`;
+    } else if (error.request) {
+      return 'No response from server';
+    } else {
+      return `Error: ${error.message}`;
+    }
+  }
+};
+
+export const addProject = async () => {
+  try {
+    const response = await axios.post(
+      `http://127.0.0.1:8000/api/create_project`, base_data_prj
+    );
+    if (!response || !response.data) {
+      throw new Error('No data received');
+    }
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      return `Server error: ${error.response.status}`;
+    } else if (error.request) {
+      return 'No response from server';
+    } else {
+      return `Error: ${error.message}`;
+    }
+  }
+};
+
+
+export const sendEmail = async (data) => {
+  try {
+    const response = await axios.post(
+      `http://127.0.0.1:8000/api/send_contact_email`, data
+    );
+    if (!response || !response.data) {
+      throw new Error('No data received');
+    }
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      return `Server error: ${error.response.status}`;
+    } else if (error.request) {
+      return 'No response from server';
+    } else {
+      return `Error: ${error.message}`;
+    }
+  }
+};

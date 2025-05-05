@@ -1,12 +1,12 @@
 <template>
   <div class="horizontal-container">
-    <img src="@/assets/title_images/photo1.png" alt="" class="prj-image" />
+    <img :src="image_url" alt="" class="prj-image" />
     <div class="prj-details">
       <p class="prj-title">{{title}}</p>
       <p class="prj-description">{{short_desc}}</p>
     </div>
     <div class="button-container">
-      <button class="edit-button">Edit</button>
+      <button class="edit-button" @click="editProject()">Edit</button>
       <button class="delete-button" @click="deleteProject()">Delete</button>
     </div>
   </div>
@@ -22,6 +22,7 @@ export default {
       title: this.title_prj,
       short_desc: this.short_desc_prj,
       prj_id: this.id_prj,
+      image_url: this.prj_image,
     };
   },
   props: {
@@ -37,18 +38,25 @@ export default {
       type: Number,
       required: true,
     },
+    prj_image: {
+      type: String,
+      required: true,
+    },
   },
   methods:{
     async deleteProject(){
     try{
-      const projects = await deleteProject(this.prj_id);
-      console.log(projects)
-      this.$router.push({ name: 'LoginAdmin' });
+      await deleteProject(this.prj_id);
+      this.$emit('project-deleted');
     } catch (error){
       console.error('Error fetching data:', error);
       this.message = 'Error loading data';
     }
-  }
+  },
+  async editProject(){
+    this.$router.push({ name: 'EditProject', params: { id: this.prj_id } });
+  },
+
   }
 };
 </script>

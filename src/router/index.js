@@ -1,5 +1,6 @@
 import AdminPage from '@/views/AdminPage.vue'
 import ContactPage from '@/views/ContactPage.vue'
+import EditProject from '@/views/EditProject.vue'
 import HomeView from '@/views/HomeView.vue'
 import LoginAdminView from '@/views/LoginAdminView.vue'
 import PrivacyView from '@/views/PrivacyView.vue'
@@ -24,7 +25,7 @@ const router = createRouter({
       path: '/projects/:title([^/]+)',
       name: 'ProjectPage',
       component: ProjectPage,
-      props: route => ({ TitleEn: route.params.title }), // Pass only TitleEn prop
+      props: route => ({ TitleEn: route.params.title }),
     },
     {
       path: '/contact',
@@ -46,6 +47,12 @@ const router = createRouter({
       name: 'PravacyPage',
       component: PrivacyView,
     },
+    {
+      path: '/admin/edit/:id',
+      name: 'EditProject',
+      component: EditProject,
+      props: true,
+    }
   ],
 })
 

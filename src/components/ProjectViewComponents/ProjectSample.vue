@@ -2,7 +2,7 @@
   <div class="floating-island" @click="handleClick">
     <h1 class="title">{{ ProjectName }}</h1>
     <div class="img-text-container">
-      <img class="img-container" src="@/assets/logo.png" alt="">
+      <img class="img-container" :src="imageUrl" alt="">
       <p>{{ ProjectShortDescription }}</p>
     </div>
   </div>
@@ -16,6 +16,7 @@ export default defineComponent({
     ProjectName: String,
     ProjectShortDescription: String,
     ProjectId: Number,
+    imageUrl: String,
   },
   setup(props) {
     const router = useRouter();
@@ -65,7 +66,6 @@ export default defineComponent({
   }
 
   .img-container{
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 300px
   }
 </style>

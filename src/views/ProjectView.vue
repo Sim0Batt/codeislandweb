@@ -7,24 +7,28 @@
   </div>
   <LanguageSelectorWidget/>
   <div class="horizontal-container">
-    <div v-for="prj in prjList" :key="prj.id">
+    <div v-for="prj in sanitizedProjects" :key="prj.id">
       <ProjectSample
         :ProjectId="prj.id"
         :ProjectName="prj.titleIt"
         :ProjectShortDescription="prj.short_descriptionIt"
-        v-if="lang == 'it-IT'"
+        :imageUrl="getImageUrl(prj.image)"
+        v-if="prj.visible == true && lang == 'it-IT'"
       />
       <ProjectSample
         :ProjectId="prj.id"
         :ProjectName="prj.titleEn"
         :ProjectShortDescription="prj.short_descriptionEn"
-        v-if="lang == 'en-EN'"
+        v-if="prj.visible == true && lang == 'en-EN'"
+        :imageUrl="getImageUrl(prj.image)"
+
       />
       <ProjectSample
         :ProjectId="prj.id"
         :ProjectName="prj.title_es"
         :ProjectShortDescription="prj.short_description_es"
-        v-if="lang == 'es-ES'"
+        v-if="prj.visible == true && lang == 'es-ES'"
+        :imageUrl="getImageUrl(prj.image)"
       />
     </div>
   </div>
@@ -39,34 +43,49 @@ import LanguageSelectorWidget from '@/components/LanguageSelectorWidget.vue';
 import NavBarProjects from '@/components/ProjectViewComponents/NavBarProjects.vue';
 import ProjectSample from '@/components/ProjectViewComponents/ProjectSample.vue';
 import { ref } from 'vue';
+
 export default {
-components:{
-  NavBarProjects,
-  ProjectSample,
-  LanguageSelectorWidget,
-  ContactSection,
-},
-data(){
-  return{
-    prjList: ref([]),
-    lang: language
-  }
-},
-mounted(){
-  this.fetchProjects();
-},
-methods:{
-  async fetchProjects(){
-    try{
-      const projects = await fetchProjects();
-      this.prjList = projects || 'No message received';
-    } catch (error){
-      console.error('Error fetching data:', error);
-      this.message = 'Error loading data';
-    }
-  }
-}
-}
+  components: {
+    NavBarProjects,
+    ProjectSample,
+    LanguageSelectorWidget,
+    ContactSection,
+  },
+  data() {
+    return {
+      prjList: ref([]),
+      lang: language,
+    };
+  },
+  computed: {
+    sanitizedProjects() {
+      return this.prjList.map((prj) => ({
+        ...prj,
+        short_descriptionIt: prj.short_descriptionIt?.replace(/<\/?p>/g, ''),
+        short_descriptionEn: prj.short_descriptionEn?.replace(/<\/?p>/g, ''),
+        short_description_es: prj.short_description_es?.replace(/<\/?p>/g, ''),
+      }));
+    },
+  },
+  mounted() {
+    this.fetchProjects();
+  },
+  methods: {
+    async fetchProjects() {
+      try {
+        const projects = await fetchProjects();
+        this.prjList = projects || 'No message received';
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        this.message = 'Error loading data';
+      }
+    },
+    getImageUrl(imagePath) {
+      const baseUrl = 'http://127.0.0.1:8000'; // Replace with your backend's base URL
+      return `${baseUrl}/${imagePath}`;
+    },
+  },
+};
 </script>
 <style scoped>
   .title-container {

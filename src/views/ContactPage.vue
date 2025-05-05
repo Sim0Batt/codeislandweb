@@ -7,7 +7,7 @@
       <p class="p1">Operational headquarters</p>
       <p>Calle Aguadulce, 25, Planta 3, Puerta 11, 35004, Las Palmas de Gran Canaria, España</p>
     </div>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="send_new_email">
       <div class="form-row">
         <label class="text" for="name">Name:</label>
         <input class="name-input" type="text" id="name" v-model="form.name" required />
@@ -65,6 +65,8 @@
   <NavBarProjects />
 </template>
 <script>
+
+import { sendEmail } from '@/api/api';
 import NavBarProjects from '@/components/ProjectViewComponents/NavBarProjects.vue';
 
 export default {
@@ -88,7 +90,16 @@ export default {
   methods: {
     submitForm() {
       console.log('Form submitted:', this.form);
-    }
+    },
+    async send_new_email() {
+      try {
+        const response = await sendEmail(this.form)
+        this.message = response || 'No message received'
+      } catch (error) {
+        console.error('Error fetching data:', error)
+        this.message = 'Error loading data'
+      }
+    },
   }
 }
 </script>

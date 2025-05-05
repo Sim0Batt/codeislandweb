@@ -16,7 +16,6 @@ export default {
       try {
         const response = await fetchData()
         this.message = response || 'No message received'
-        console.log('projects: ' + this.message)
       } catch (error) {
         console.error('Error fetching data:', error)
         this.message = 'Error loading data'

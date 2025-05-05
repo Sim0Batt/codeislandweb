@@ -4,21 +4,23 @@
   <h1 v-if="lang=='es-ES'" class="title">Últimos Proyectos</h1>
   <div class="tabs-container">
     <div class="tabs">
-      <div class="tab" v-for="tab in tabs" :key="tab.id">
-        <h1 v-if="lang=='it-IT'" class="title-prj">{{ tab.titleIt }}</h1>
-        <h1 v-if="lang=='en-EN'" class="title-prj">{{ tab.titleEn }}</h1>
-        <h1 v-if="lang=='es-ES'" class="title-prj">{{ tab.title_es }}</h1>
-        <img src="@/assets/logo.png" />
-        <div class="project-text-container">
-          <p v-if="lang == 'it-IT'">
-            {{ tab.short_descriptionIt }}
-          </p>
-          <p v-if="lang == 'en-EN'">
-            {{ tab.short_descriptionEn }}
-          </p>
-          <p v-if="lang == 'es-ES'">
-            {{ tab.short_description_es }}
-          </p>
+      <div v-for="tab in sanitizedProjects" :key="tab.id">
+        <div v-if="tab.visible" class="tab">
+          <h1 v-if="lang=='it-IT'" class="title-prj">{{ tab.titleIt }}</h1>
+          <h1 v-if="lang=='en-EN'" class="title-prj">{{ tab.titleEn }}</h1>
+          <h1 v-if="lang=='es-ES'" class="title-prj">{{ tab.title_es }}</h1>
+          <img :src="getImageUrl(tab.image)" />
+          <div class="project-text-container">
+            <p v-if="lang == 'it-IT'">
+              {{ tab.short_descriptionIt }}
+            </p>
+            <p v-if="lang == 'en-EN'">
+              {{ tab.short_descriptionEn }}
+            </p>
+            <p v-if="lang == 'es-ES'">
+              {{ tab.short_description_es }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -38,12 +40,32 @@ export default {
     async fetchProj(){
       try {
         const projects = await fetchProjects();
-        this.tabs = projects.slice(0, 2) || 'No message received';
+
+        this.tabs = projects.slice(-2) || 'No message received';
+        for(var item in this.tabs){
+          if(item.visible == false){
+            this.tabs.remove(item);
+          }
+        }
       } catch (error){
         console.error('Error fetching data:', error);
         this.message = 'Error loading data';
       }
-    }
+    },
+    getImageUrl(imagePath) {
+      const baseUrl = 'http://127.0.0.1:8000'; // Replace with your backend's base URL
+      return `${baseUrl}/${imagePath}`;
+    },
+  },
+  computed: {
+    sanitizedProjects() {
+      return this.tabs.map((prj) => ({
+        ...prj,
+        short_descriptionIt: prj.short_descriptionIt?.replace(/<\/?p>/g, ''),
+        short_descriptionEn: prj.short_descriptionEn?.replace(/<\/?p>/g, ''),
+        short_description_es: prj.short_description_es?.replace(/<\/?p>/g, ''),
+      }));
+    },
   },
   mounted(){
     this.fetchProj();
@@ -58,19 +80,21 @@ export default {
 }
 .tabs {
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 5px;
 }
 .tab {
-  flex: 0 0 50%; /* Decrease the width of each tab */
-  padding: 30px; /* Increase the height of each tab */
-  margin-right: 20px;
+  flex: 0 0 calc(45% - 10px);
+  max-width: 300px;
+  padding: 10px;
+  margin: 0;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 18px;
+  font-size: 16px;
   box-sizing: border-box;
-  max-width: 400px;
-  overflow: hidden; /* Prevent content overflow */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -80,22 +104,23 @@ export default {
   max-width: 100%;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  white-space: normal; /* Ensure text wraps inside */
+  white-space: normal;
   font-size: 14px;
+  text-align: center;
 }
 
-.title-prj{
+.title-prj {
   text-align: center;
-  font-size: 100%;
+  font-size: 1em;
   color: #9dc12a;
   font-weight: bold;
-  margin: 10px;
+  margin: 5px 0;
 }
 
-.title{
-  font-size: 2em;
+.title {
+  font-size: 1.5em;
   color: black;
   font-weight: bold;
-  margin: 10px;
+  margin: 5px 0;
 }
 </style>

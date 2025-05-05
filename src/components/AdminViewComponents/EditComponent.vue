@@ -28,7 +28,7 @@
         <textarea class="message-input" id="message" v-model="EditedTextEs" required></textarea>
       </form>
       <div class="button-container">
-        <button class="submit-btn" type="submit" @click="submitForm">Send</button>
+        <button class="submit-btn" type="submit" @click="submitForm">Salva</button>
       </div>
     </div>
   </div>
@@ -54,19 +54,16 @@ export default {
           await updateAboutTexts('it', this.EditedTextIt);
           await updateAboutTexts('en', this.EditedTextEn);
           await updateAboutTexts('es', this.EditedTextEs);
-          console.log('About texts updated successfully');
         }
         if (this.Title === "PartnersText") {
           await updatePartnersTexts('it', this.EditedTextIt);
           await updatePartnersTexts('en', this.EditedTextEn);
           await updatePartnersTexts('es', this.EditedTextEs);
-          console.log('About texts updated successfully');
         }
         if (this.Title === "TechnologiesText") {
           await updateTechTexts('it', this.EditedTextIt);
           await updateTechTexts('en', this.EditedTextEn);
           await updateTechTexts('es', this.EditedTextEs);
-          console.log('About texts updated successfully');
         }
         // Add similar conditions for other text types if needed
       } catch (error) {
